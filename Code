@@ -1,0 +1,211 @@
+import pygame
+from pygame import mixer
+import random
+
+pygame.init()
+pygame.font.init()
+
+# Anything outside the window must go outside while loop
+
+x = 10
+y = 335
+mx = 850
+my = 335
+x2 = 850
+vel_x =  4
+vel_jumpy = 14
+vel_jumpx = 14
+vel2 = 3
+vel3 = 5
+x_pos = random.randint( 0, 900 )
+y_pos = 0
+jump = False
+FPS = 60
+
+SCREEN_WIDTH = 900
+SCREEN_HEIGHT = 500
+
+WIN = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+pygame.display.set_caption('Mario')
+icon = pygame.image.load('assets\shooter.png')
+pygame.display.set_icon(icon)
+
+# Setting a background
+
+background = pygame.image.load('assets/background.png')
+
+# Sound
+
+mixer.music.load("assets/mario_theme.mp3")
+mixer.music.play(-1)
+
+# Coins Collected
+
+coin_value = 0
+life_value = 3
+font = pygame.font.SysFont('Monaco',40)
+
+textX = 400
+textY = 10
+
+def show_coins(x,y):
+    coins = font.render('Coins : ' + str(coin_value), True, (255, 255, 255))
+    lives = font.render('Lives : ' + str(life_value), True, (255, 255, 255))
+    WIN.blit(coins, (x, y))
+    WIN.blit(lives, (775, 10))
+
+# Characters
+
+PLATFORM_WIDTH = 100
+PLATFORM_HEIGHT = 60
+
+platform = pygame.image.load('assets/platform.png')
+platform = pygame.transform.scale(platform, (PLATFORM_WIDTH, PLATFORM_HEIGHT))
+
+platform_2 = pygame.image.load('assets/platform.png')
+platform_2 = pygame.transform.scale(platform_2, (PLATFORM_WIDTH, PLATFORM_HEIGHT))
+
+platform_3 = pygame.image.load('assets/platform.png')
+platform_3 = pygame.transform.scale(platform_3, (PLATFORM_WIDTH, PLATFORM_HEIGHT))
+
+platform_4 = pygame.image.load('assets/platform.png')
+platform_4 = pygame.transform.scale(platform_4, (PLATFORM_WIDTH, PLATFORM_HEIGHT))
+
+platform_5 = pygame.image.load('assets/platform.png')
+platform_5 = pygame.transform.scale(platform_5, (PLATFORM_WIDTH, PLATFORM_HEIGHT))
+
+platform_6 = pygame.image.load('assets/platform.png')
+platform_6 = pygame.transform.scale(platform_6, (PLATFORM_WIDTH, PLATFORM_HEIGHT))
+
+platform_7 = pygame.image.load('assets/platform.png')
+platform_7 = pygame.transform.scale(platform_7, (PLATFORM_WIDTH, PLATFORM_HEIGHT))
+
+GRASS_WIDTH = 900
+GRASS_HEIGHT = 75
+
+grass = pygame.image.load('assets/grass.png')
+grass = pygame.transform.scale(grass, (GRASS_WIDTH, GRASS_HEIGHT))
+
+PLAYER_WIDTH = 40
+PLAYER_HEIGHT = 40
+
+player = pygame.image.load('assets/mario.png')
+player = pygame.transform.scale(player, (PLAYER_WIDTH, PLAYER_HEIGHT))
+
+MUSHROOM_WIDTH = 50
+MUSHROOM_HEIGHT = 50
+
+mushroom = pygame.image.load('assets/goomba.png')
+mushroom = pygame.transform.scale(mushroom, (MUSHROOM_WIDTH, MUSHROOM_HEIGHT))
+
+PLANT_WIDTH = 50
+PLANT_HEIGHT = 50
+
+plant = pygame.image.load('assets/plant.png')
+plant = pygame.transform.scale(plant, (PLANT_WIDTH, PLANT_HEIGHT))
+
+FINISH_WIDTH = 40
+FINISH_HEIGHT = 175
+
+finish = pygame.image.load('assets/finish.png')
+finish = pygame.transform.scale(finish, (FINISH_WIDTH, FINISH_HEIGHT))
+
+COIN_WIDTH = 45
+COIN_HEIGHT = 35
+
+coin = pygame.image.load('assets/coin.png')
+coin = pygame.transform.scale(coin, (COIN_WIDTH, COIN_HEIGHT))
+
+coin2 = pygame.image.load('assets/coin.png')
+coin2 = pygame.transform.scale(coin2, (COIN_WIDTH, COIN_HEIGHT))
+
+coin3 = pygame.image.load('assets/coin.png')
+coin3 = pygame.transform.scale(coin3, (COIN_WIDTH, COIN_HEIGHT))
+
+coin4 = pygame.image.load('assets/coin.png')
+coin4 = pygame.transform.scale(coin4, (COIN_WIDTH, COIN_HEIGHT))
+
+coin5 = pygame.image.load('assets/coin.png')
+coin5 = pygame.transform.scale(coin5, (COIN_WIDTH, COIN_HEIGHT))
+
+LASER_WIDTH = 20
+LASER_HEIGHT = 50
+
+laser = pygame.image.load('assets/laser.png')
+laser = pygame.transform.scale(laser, (LASER_WIDTH, LASER_HEIGHT))
+laser = pygame.transform.rotate(laser, (90))
+
+PIPE_WIDTH = 50
+PIPE_HEIGHT = 50
+
+pipe = pygame.image.load('assets/pipe.png')
+pipe = pygame.transform.scale(pipe, (PIPE_WIDTH, PIPE_HEIGHT))
+pipe = pygame.transform.rotate(pipe, (90))
+
+MARIOBROS_WIDTH = 225
+MARIOBROS_HEIGHT = 125
+
+mariobros = pygame.image.load('assets/mariobros.png')
+mariobros = pygame.transform.scale(mariobros, (MARIOBROS_WIDTH, MARIOBROS_HEIGHT))
+
+# Main Loop
+
+run = True
+while run:
+
+    WIN.blit(background, (0,0))
+    WIN.blit(platform, (150, 275))
+    WIN.blit(platform_2, (250, 215))
+    WIN.blit(platform_3, (350, 155))
+    WIN.blit(platform_4, (350, 275))
+    WIN.blit(platform_5, (450, 215))
+    WIN.blit(platform_6, (550, 155))
+    WIN.blit(platform_7, (650, 215))
+    WIN.blit(grass, (0, 375))
+    WIN.blit(coin, (179, 255))
+    WIN.blit(coin2, (279, 195))
+    WIN.blit(coin3, (379, 255))
+    WIN.blit(coin4, (479, 195))
+    WIN.blit(coin5, (579, 135))
+    WIN.blit(player, (x,y))
+    WIN.blit(mushroom, (mx, my))
+    WIN.blit(plant, (372, 125))
+    WIN.blit(finish, (672, 57))
+    WIN.blit(pipe, (850, 330))
+    WIN.blit(laser, (x_pos, y_pos))
+    WIN.blit(mariobros, (0, 0))
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            run = False
+
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_LEFT] and x > vel_x:
+        x -= vel_x
+    if keys[pygame.K_RIGHT] and x < 850 - PLANT_WIDTH - vel_x:
+        x += vel_x
+
+    if jump is False and keys[pygame.K_SPACE]:
+        jump = True
+    
+    if jump is True:
+        y -= vel_jumpy
+        vel_jumpy -= 1
+        if vel_jumpy < -14:
+            jump = False
+            vel_jumpy = 14
+    
+    y_pos += vel3
+    if y_pos > 500:
+        x_pos = random.randint( 0, 900 )
+        y_pos = 0
+
+    mx -= vel2
+    if mx < 0 - MUSHROOM_WIDTH - vel2:
+        mx = 900
+
+    pygame.time.delay(15)
+    show_coins(textX, textY)
+    pygame.display.update()
+
+pygame.quit()
